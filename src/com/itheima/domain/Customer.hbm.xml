@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- 配置表与实体的对象关系 -->
+<!-- 配置package属性，填写包名，在内部任何需要填写全包名的地方都可以填写简单类名 -->
+<hibernate-mapping package="com.itheima.domain">
+	<!-- 
+		class:配置实体与表之间对应关系的
+		name:对应的实体完全类名
+		table:对应的数据库表名
+	 -->
+	<class name="Customer" table="cst_customer">
+		<!--
+			id:配置主键映射的属性
+			name:配置主键对应属性名
+			column:可选属性，填写表中的对应列名，默认值列名会使用属性名
+		 -->
+		<id name="cust_id" column="cust_id">
+			<generator class="native"></generator>
+		</id>
+		<!-- 
+			property:配置除id之外的普通列的映射
+		 -->
+		<property name="cust_name" column="cust_name"></property>
+		<property name="cust_user_id" column="cust_user_id"></property>
+		<property name="cust_create_id" column="cust_create_id"></property>
+		<property name="cust_source" column="cust_source"></property>
+		<property name="cust_industry" column="cust_industry"></property>
+		<property name="cust_level" column="cust_level"></property>
+		<property name="cust_linkman" column="cust_linkman"></property>
+		<property name="cust_phone" column="cust_phone"></property>
+		<property name="cust_mobile" column="cust_mobile"></property>
+		<!-- 客户与联系人是一对多的关系
+			name属性:集合属性名
+			column属性：外键列名
+			class属性：与我关联的对象完整类名
+		 -->
+		<set name="linkMans" inverse="true">
+			<key column="lkm_cust_id"></key>
+			<one-to-many class="LinkMan"/>
+		</set>
+	</class>
+</hibernate-mapping>
